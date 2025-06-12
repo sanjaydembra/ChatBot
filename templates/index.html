@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Upload PDFs | Smart Chat</title>
+    <style>
+      body {
+        font-family: "Urbanist", sans-serif;
+        background-color: #f9fafb;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="min-h-screen flex items-center justify-center px-6 py-12 bg-white relative isolate overflow-hidden"
+    >
+      <!-- SVG Background -->
+      <svg
+        class="absolute inset-0 -z-10 h-full w-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id="pattern-bg"
+            width="200"
+            height="200"
+            patternUnits="userSpaceOnUse"
+          >
+            <path d="M0 200V0H200" fill="none" />
+          </pattern>
+        </defs>
+        <rect
+          width="100%"
+          height="100%"
+          stroke-width="0"
+          fill="url(#pattern-bg)"
+        />
+      </svg>
+
+      <div
+        class="max-w-6xl w-full flex flex-col md:flex-row items-center justify-between gap-12"
+      >
+        <!-- Left: Text & Upload -->
+        <div class="max-w-xl w-full">
+          <div class="flex items-center gap-3 mb-4">
+            <img
+              src="https://res.cloudinary.com/dtsuvx8dz/image/upload/v1706986565/hqatxpsjdg3zeql20jfe.png"
+              alt="Logo"
+              class="h-8 w-8"
+            />
+            <span class="text-sm font-semibold text-indigo-500"
+              >Smart Chat</span
+            >
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            Chat with your PDFs.
+          </h1>
+          <p class="text-lg text-gray-600 mb-6">
+            Upload your documents and ask questions — powered by LangChain,
+            HuggingFace, and FAISS.
+          </p>
+
+          <!-- Upload Form -->
+          <form
+            action="/process"
+            method="post"
+            enctype="multipart/form-data"
+            class="flex flex-col sm:flex-row items-start sm:items-center gap-4"
+          >
+            <input
+              type="file"
+              name="pdf_docs"
+              id="pdf_docs"
+              accept=".pdf"
+              multiple
+              required
+              class="block w-full sm:w-auto text-sm text-slate-600 border rounded-2xl py-2 px-4 bg-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100"
+            />
+            <button
+              type="submit"
+              class="bg-gradient-to-br from-indigo-500 to-purple-600 px-6 py-2.5 rounded-2xl text-white text-sm font-semibold hover:opacity-90 transition"
+            >
+              Process PDF
+            </button>
+          </form>
+        </div>
+
+        <!-- Right: Screenshot/Preview -->
+        <div class="w-full md:w-[22rem] mt-12 md:mt-0">
+          <img
+            src="https://res.cloudinary.com/dtsuvx8dz/image/upload/v1709048322/o3ad4w8hedswhwymbhr9.png"
+            alt="Chatbot Screenshot"
+            class="w-full h-auto rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

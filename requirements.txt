@@ -1,0 +1,6 @@
+flask
+PyPDF2
+transformers
+torch
+langchain
+faiss-cpu

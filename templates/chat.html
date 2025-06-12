@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Smart Chat</title>
+    <style>
+      body {
+        font-family: "Urbanist", sans-serif;
+        background: #f9fafb;
+      }
+      @keyframes fadeUp {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-up {
+        animation: fadeUp 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="min-h-screen flex flex-col md:flex-row">
+      <!-- Sidebar -->
+      <aside
+        class="w-full md:w-64 bg-gradient-to-b from-indigo-500 to-blue-700 text-white p-6 md:block hidden"
+      >
+        <div class="text-2xl font-semibold mb-6">💬 Smart Chat</div>
+        <div class="space-y-4">
+          <div class="flex items-center space-x-3">
+            <img
+              src="https://i.pravatar.cc/100"
+              class="w-10 h-10 rounded-full border-2 border-white shadow"
+              alt="User avatar"
+            />
+            <div>
+              <p class="text-sm font-medium">User</p>
+              <p class="text-xs text-indigo-200">Online</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Chat Area -->
+      <main class="flex-1 flex flex-col bg-white">
+        <!-- Header -->
+        <header
+          class="p-4 border-b flex justify-between items-center bg-white shadow-sm"
+        >
+          <h1 class="text-lg font-semibold text-gray-800">Chat with AI</h1>
+          <span class="text-xs text-gray-400">v1.0</span>
+        </header>
+
+        <!-- Messages -->
+        <div
+          id="messages"
+          class="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-gray-50 scroll-smooth"
+        >
+          {% if chat_history %}
+          <ul class="space-y-4">
+            {% for message, sender in chat_history %}
+            <li
+              class="fade-up flex {% if sender == 'human' %} justify-end {% else %} justify-start {% endif %}"
+            >
+              <div
+                class="{% if sender == 'human' %} bg-indigo-100 text-right {% else %} bg-white border text-left {% endif %} max-w-md px-4 py-3 rounded-xl shadow text-sm"
+              >
+                <p class="text-xs text-gray-500 mb-1">
+                  {{ 'You' if sender == 'human' else 'AI Assistant' }}
+                </p>
+                <p
+                  class="text-gray-700 leading-snug break-words whitespace-pre-line"
+                >
+                  {{ message }}
+                </p>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <div class="text-center text-gray-400 italic pt-10">
+            No messages yet. Say hello!
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Input Form -->
+        <form
+          action="/chat"
+          method="post"
+          class="p-4 bg-white border-t shadow-inner"
+        >
+          <div class="flex items-center gap-3">
+            <input
+              type="text"
+              name="user_question"
+              placeholder="Type your message..."
+              required
+              class="flex-grow px-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-indigo-700 transition"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <!-- Scroll to bottom script -->
+    <script>
+      const messagesDiv = document.getElementById("messages");
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    </script>
+  </body>
+</html>
