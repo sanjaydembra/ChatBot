@@ -1,6 +1,8 @@
-flask
-PyPDF2
-transformers
-torch
+streamlit
 langchain
+langchain-community
 faiss-cpu
+huggingface_hub
+transformers
+sentence-transformers
+torch
